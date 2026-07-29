@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Fancy Text Generator | ToolNova</title>
+
+<meta name="description" content="Generate stylish fancy text for Instagram, Facebook, WhatsApp and other social media.">
+
+<link rel="stylesheet" href="../css/style.css">
+
+<style>
+
+.container{
+
+max-width:900px;
+margin:60px auto;
+background:#fff;
+padding:30px;
+border-radius:20px;
+box-shadow:0 10px 35px rgba(0,0,0,.08);
+
+}
+
+textarea{
+
+width:100%;
+padding:18px;
+font-size:18px;
+border-radius:12px;
+border:1px solid #ddd;
+resize:none;
+height:130px;
+
+}
+
+.result{
+
+margin-top:25px;
+
+}
+
+.item{
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px;
+margin-bottom:15px;
+border:1px solid #eee;
+border-radius:12px;
+background:#fafafa;
+
+}
+
+.text{
+
+font-size:20px;
+word-break:break-word;
+
+}
+
+button{
+
+padding:10px 18px;
+background:#111827;
+color:#fff;
+border:none;
+border-radius:8px;
+cursor:pointer;
+
+}
+
+button:hover{
+
+background:#000;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header class="navbar">
+
+<div class="logo">
+
+ToolNova
+
+</div>
+
+<nav>
+
+<a href="../index.html">Home</a>
+
+<a href="#">Fancy Text</a>
+
+</nav>
+
+</header>
+
+<div class="container">
+
+<h1>
+
+Fancy Text Generator
+
+</h1>
+
+<p>
+
+Type your text below.
+
+</p>
+
+<textarea
+
+id="input"
+
+placeholder="Enter text..."
+
+onkeyup="generate()"
+
+></textarea>
+
+<div class="result" id="result">
+
+</div>
+
+</div>
+
+<script>
+
+const styles=[
+
+t=>"🅰 "+t,
+
+t=>"★ "+t+" ★",
+
+t=>"🔥 "+t+" 🔥",
+
+t=>"❤ "+t+" ❤",
+
+t=>"『"+t+"』",
+
+t=>"【"+t+"】",
+
+t=>"《"+t+"》",
+
+t=>"✦ "+t+" ✦",
+
+t=>"➜ "+t,
+
+t=>"✔ "+t
+
+];
+
+function generate(){
+
+const value=document.getElementById("input").value;
+
+const result=document.getElementById("result");
+
+result.innerHTML="";
+
+styles.forEach((style,index)=>{
+
+const output=style(value);
+
+result.innerHTML+=`
+
+<div class="item">
+
+<div class="text">${output}</div>
+
+<button onclick="copyText(${index})">
+
+Copy
+
+</button>
+
+</div>
+
+`;
+
+});
+
+window.generated=styles.map(s=>s(value));
+
+}
+
+function copyText(index){
+
+navigator.clipboard.writeText(window.generated[index]);
+
+alert("Copied");
+
+}
+
+generate();
+
+</script>
+
+</body>
+</html>
