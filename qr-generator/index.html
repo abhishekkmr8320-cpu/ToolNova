@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Free QR Code Generator | ToolNova</title>
+
+<meta name="description"
+content="Generate QR Codes for URLs, text, email, phone numbers, SMS, WiFi and more.">
+
+<meta name="keywords"
+content="QR Code Generator, Free QR Code, QR Maker">
+
+<link
+rel="stylesheet"
+href="../css/style.css">
+
+<style>
+
+body{
+
+background:#f4f6fb;
+
+}
+
+.tool{
+
+max-width:900px;
+
+margin:60px auto;
+
+background:#fff;
+
+padding:35px;
+
+border-radius:20px;
+
+box-shadow:0 10px 40px rgba(0,0,0,.08);
+
+}
+
+.tool h1{
+
+text-align:center;
+
+margin-bottom:10px;
+
+}
+
+.tool p{
+
+text-align:center;
+
+color:#666;
+
+margin-bottom:30px;
+
+}
+
+.row{
+
+margin-bottom:20px;
+
+}
+
+label{
+
+display:block;
+
+margin-bottom:8px;
+
+font-weight:bold;
+
+}
+
+select,
+
+input,
+
+textarea{
+
+width:100%;
+
+padding:15px;
+
+font-size:17px;
+
+border:1px solid #ddd;
+
+border-radius:10px;
+
+outline:none;
+
+}
+
+textarea{
+
+height:120px;
+
+resize:none;
+
+}
+
+button{
+
+width:100%;
+
+padding:15px;
+
+border:none;
+
+border-radius:10px;
+
+font-size:18px;
+
+cursor:pointer;
+
+background:#111827;
+
+color:white;
+
+margin-top:10px;
+
+}
+
+button:hover{
+
+background:#000;
+
+}
+
+#qrcode{
+
+display:flex;
+
+justify-content:center;
+
+margin-top:30px;
+
+}
+
+.actions{
+
+display:grid;
+
+grid-template-columns:1fr 1fr;
+
+gap:15px;
+
+margin-top:25px;
+
+}
+
+.download{
+
+background:#16a34a;
+
+}
+
+.copy{
+
+background:#2563eb;
+
+}
+
+.clear{
+
+background:#dc2626;
+
+}
+
+.hidden{
+
+display:none;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header class="navbar">
+
+<div class="logo">
+
+ToolNova
+
+</div>
+
+<nav>
+
+<a href="../index.html">
+
+Home
+
+</a>
+
+<a href="#">
+
+QR Generator
+
+</a>
+
+</nav>
+
+</header>
+
+<div class="tool">
+
+<h1>
+
+QR Code Generator
+
+</h1>
+
+<p>
+
+Create professional QR Codes instantly.
+
+</p>
+
+<div class="row">
+
+<label>
+
+QR Type
+
+</label>
+
+<select id="type">
+
+<option value="text">
+
+Text
+
+</option>
+
+<option value="url">
+
+Website
+
+</option>
+
+<option value="phone">
+
+Phone
+
+</option>
+
+<option value="email">
+
+Email
+
+</option>
+
+<option value="sms">
+
+SMS
+
+</option>
+
+<option value="wifi">
+
+WiFi
+
+</option>
+
+</select>
+
+</div>
+
+<div class="row">
+
+<label>
+
+Enter Content
+
+</label>
+
+<textarea
+
+id="content"
+
+placeholder="Type here..."
+
+></textarea>
+
+</div>
+
+<button
+
+onclick="generateQR()">
+
+Generate QR Code
+
+</button>
+
+<div
+
+id="qrcode">
+
+</div>
+
+<div
+
+class="actions hidden"
+
+id="buttons">
+
+<button
+
+class="download"
+
+onclick="downloadQR()">
+
+Download PNG
+
+</button>
+
+<button
+
+class="copy"
+
+onclick="copyContent()">
+
+Copy Content
+
+</button>
+
+<button
+
+class="clear"
+
+onclick="clearQR()">
+
+Clear
+
+</button>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+<script>
+
+let qr;
+function generateQR(){
+
+let type=document.getElementById("type").value;
+
+let value=document.getElementById("content").value.trim();
+
+if(value===""){
+
+alert("Please enter some content.");
+
+return;
+
+}
+
+switch(type){
+
+case "url":
+
+if(!/^https?:\/\//i.test(value)){
+
+value="https://"+value;
+
+}
+
+break;
+
+case "phone":
+
+value="tel:"+value;
+
+break;
+
+case "email":
+
+value="mailto:"+value;
+
+break;
+
+case "sms":
+
+value="sms:"+value;
+
+break;
+
+}
+
+document.getElementById("qrcode").innerHTML="";
+
+qr=new QRCode(document.getElementById("qrcode"),{
+
+text:value,
+
+width:250,
+
+height:250,
+
+colorDark:"#000000",
+
+colorLight:"#ffffff",
+
+correctLevel:QRCode.CorrectLevel.H
+
+});
+
+document.getElementById("actions").style.display="grid";
+
+window.currentValue=value;
+
+}
+
+function copyContent(){
+
+navigator.clipboard.writeText(window.currentValue);
+
+alert("Content copied successfully.");
+
+}
+
+function clearQR(){
+
+document.getElementById("content").value="";
+
+document.getElementById("qrcode").innerHTML="";
+
+document.getElementById("actions").style.display="none";
+
+window.currentValue="";
+
+} 
+  
+function downloadQR(){
+
+const canvas=document.querySelector("#qrcode canvas");
+
+const img=document.querySelector("#qrcode img");
+
+let image="";
+
+if(canvas){
+
+image=canvas.toDataURL("image/png");
+
+}
+
+else if(img){
+
+image=img.src;
+
+}
+
+else{
+
+alert("Generate a QR Code first.");
+
+return;
+
+}
+
+const link=document.createElement("a");
+
+link.href=image;
+
+link.download="ToolNova-QR-Code.png";
+
+document.body.appendChild(link);
+
+link.click();
+
+document.body.removeChild(link);
+
+}
+
+document.getElementById("type").addEventListener("change",function(){
+
+const placeholders={
+
+text:"Enter any text...",
+
+url:"https://example.com",
+
+phone:"9876543210",
+
+email:"example@example.com",
+
+sms:"9876543210?body=Hello"
+
+};
+
+document.getElementById("content").placeholder=
+
+placeholders[this.value];
+
+});
+
+window.onload=function(){
+
+document.getElementById("content").placeholder="Enter any text...";
+
+generateQRPreview();
+
+};
+
+function generateQRPreview(){
+
+document.getElementById("content").addEventListener("input",function(){
+
+if(this.value.trim()!==""){
+
+generateQR();
+
+}else{
+
+document.getElementById("qrcode").innerHTML="";
+
+document.getElementById("actions").style.display="none";
+
+}
+
+});
+
+}  
+
+generateQR();
+
+</script>
+
+</body>
+
+</html>  
