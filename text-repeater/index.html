@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Text Repeater | ToolNova</title>
+
+<meta name="description"
+content="Repeat text multiple times online for free.">
+
+<link rel="stylesheet"
+href="../css/style.css">
+
+<style>
+
+body{
+
+background:#f5f7fb;
+
+font-family:Arial,Helvetica,sans-serif;
+
+}
+
+.container{
+
+max-width:900px;
+
+margin:50px auto;
+
+background:#fff;
+
+padding:30px;
+
+border-radius:20px;
+
+box-shadow:0 10px 30px rgba(0,0,0,.08);
+
+}
+
+h1{
+
+text-align:center;
+
+margin-bottom:10px;
+
+}
+
+.subtitle{
+
+text-align:center;
+
+color:#666;
+
+margin-bottom:30px;
+
+}
+
+.form-group{
+
+margin-bottom:20px;
+
+}
+
+label{
+
+display:block;
+
+margin-bottom:8px;
+
+font-weight:bold;
+
+}
+
+textarea,
+input,
+select{
+
+width:100%;
+
+padding:15px;
+
+font-size:16px;
+
+border:1px solid #ddd;
+
+border-radius:10px;
+
+outline:none;
+
+}
+
+textarea{
+
+resize:none;
+
+height:120px;
+
+}
+
+.options{
+
+display:grid;
+
+grid-template-columns:repeat(2,1fr);
+
+gap:20px;
+
+}
+
+button{
+
+width:100%;
+
+padding:15px;
+
+margin-top:15px;
+
+border:none;
+
+border-radius:10px;
+
+background:#111827;
+
+color:#fff;
+
+font-size:16px;
+
+cursor:pointer;
+
+}
+
+button:hover{
+
+background:#000;
+
+}
+
+.output{
+
+margin-top:30px;
+
+}
+
+#result{
+
+height:250px;
+
+}
+
+.actions{
+
+display:grid;
+
+grid-template-columns:repeat(3,1fr);
+
+gap:15px;
+
+margin-top:20px;
+
+}
+
+.copy{
+
+background:#2563eb;
+
+}
+
+.download{
+
+background:#16a34a;
+
+}
+
+.clear{
+
+background:#dc2626;
+
+}
+
+@media(max-width:768px){
+
+.options{
+
+grid-template-columns:1fr;
+
+}
+
+.actions{
+
+grid-template-columns:1fr;
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header class="navbar">
+
+<div class="logo">
+
+ToolNova
+
+</div>
+
+<nav>
+
+<a href="../index.html">
+
+Home
+
+</a>
+
+<a href="#">
+
+Text Repeater
+
+</a>
+
+</nav>
+
+</header>
+
+<div class="container">
+
+<h1>
+
+Text Repeater
+
+</h1>
+
+<p class="subtitle">
+
+Repeat text instantly with custom separators.
+
+</p>
+
+<div class="form-group">
+
+<label>
+
+Enter Text
+
+</label>
+
+<textarea
+
+id="text"
+
+placeholder="Type your text..."></textarea>
+
+</div>
+
+<div class="options">
+
+<div>
+
+<label>
+
+Repeat Count
+
+</label>
+
+<input
+
+type="number"
+
+id="count"
+
+min="1"
+
+max="10000"
+
+value="10">
+
+</div>
+
+<div>
+
+<label>
+
+Separator
+
+</label>
+
+<select
+
+id="separator">
+
+<option value="\n">
+
+New Line
+
+</option>
+
+<option value=" ">
+
+Space
+
+</option>
+
+<option value=", ">
+
+Comma
+
+</option>
+
+<option value="-">
+
+Dash
+
+</option>
+
+</select>
+
+</div>
+
+</div>
+
+<button onclick="repeatText()">
+
+Generate
+
+</button>
+
+<div class="output">
+
+<label>
+
+Result
+
+</label>
+
+<textarea
+
+id="result"
+
+readonly></textarea>
+
+</div>
+
+<div class="actions">
+
+<button
+
+class="copy"
+
+onclick="copyResult()">
+
+Copy
+
+</button>
+
+<button
+
+class="download"
+
+onclick="downloadResult()">
+
+Download TXT
+
+</button>
+
+<button
+
+class="clear"
+
+onclick="clearResult()">
+
+Clear
+
+</button>
+
+</div>
+
+<script> 
+function repeatText(){
+
+const text=document.getElementById("text").value;
+
+const count=parseInt(document.getElementById("count").value);
+
+const separator=document.getElementById("separator").value;
+
+if(text.trim()===""){
+
+alert("Please enter some text.");
+
+return;
+
+}
+
+if(isNaN(count)||count<1||count>10000){
+
+alert("Repeat count must be between 1 and 10000.");
+
+return;
+
+}
+
+const output=new Array(count).fill(text).join(separator);
+
+document.getElementById("result").value=output;
+
+updateStats(output);
+
+}
+
+function copyResult(){
+
+const result=document.getElementById("result");
+
+if(result.value===""){
+
+alert("Nothing to copy.");
+
+return;
+
+}
+
+navigator.clipboard.writeText(result.value);
+
+alert("Copied successfully.");
+
+}
+
+function clearResult(){
+
+document.getElementById("text").value="";
+
+document.getElementById("count").value=10;
+
+document.getElementById("separator").value="\\n";
+
+document.getElementById("result").value="";
+
+}
+function downloadResult(){
+
+const result=document.getElementById("result").value;
+
+if(result===""){
+
+alert("Generate text first.");
+
+return;
+
+}
+
+const blob=new Blob([result],{type:"text/plain"});
+
+const url=URL.createObjectURL(blob);
+
+const a=document.createElement("a");
+
+a.href=url;
+
+a.download="repeated-text.txt";
+
+document.body.appendChild(a);
+
+a.click();
+
+document.body.removeChild(a);
+
+URL.revokeObjectURL(url);
+
+}
+
+function updateStats(text){
+
+const characters=text.length;
+
+const words=text.trim()===""
+?0
+:text.trim().split(/\s+/).length;
+
+document.title=`(${characters} Characters) Text Repeater | ToolNova`;
+
+console.log("Characters:",characters);
+
+console.log("Words:",words);
+
+}
+
+document.getElementById("text").addEventListener("input",function(){
+
+if(this.value===""){
+
+document.getElementById("result").value="";
+
+return;
+
+}
+
+repeatText();
+
+});
+
+document.getElementById("count").addEventListener("input",repeatText);
+
+document.getElementById("separator").addEventListener("change",repeatText);
+window.onload=function(){
+
+document.getElementById("text").focus();
+
+repeatText();
+
+};
+
+</script>
+
+</body>
+
+</html>  
