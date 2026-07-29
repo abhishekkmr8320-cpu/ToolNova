@@ -1,1 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
 
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ToolNova – Free Online Utility Tools</title>
+
+<meta name="description" content="ToolNova offers free online utility tools including WhatsApp tools, Fancy Text Generator, Image Tools, QR Generator, Password Generator, Developer Tools and more.">
+
+<meta name="keywords" content="ToolNova, WhatsApp sender, Fancy text generator, Image tools, QR generator, Password generator, Online utility tools">
+
+<meta name="author" content="Abhishek Kumar">
+
+<link rel="stylesheet" href="css/style.css">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+<header class="navbar">
+
+<div class="logo">
+ToolNova
+</div>
+
+<nav>
+
+<a href="#">Home</a>
+
+<a href="#">Tools</a>
+
+<a href="#">Categories</a>
+
+<a href="#">About</a>
+
+<a href="#">Contact</a>
+
+</nav>
+
+</header>
+
+<section class="hero">
+
+<h1>
+
+One Place for Every
+
+<span>Digital Tool</span>
+
+</h1>
+
+<p>
+
+Fast, Free, Secure online tools for everyone.
+
+</p>
+
+<div class="search-box">
+
+<input
+type="text"
+placeholder="Search any tool...">
+
+<button>
+
+Search
+
+</button>
+
+</div>
+
+</section>
+
+<section class="categories">
+
+<h2>
+
+Popular Categories
+
+</h2>
+
+<div class="grid">
+
+<div class="card">
+
+💬
+
+<h3>WhatsApp</h3>
+
+</div>
+
+<div class="card">
+
+✨
+
+<h3>Text</h3>
+
+</div>
+
+<div class="card">
+
+🖼
+
+<h3>Image</h3>
+
+</div>
+
+<div class="card">
+
+🔐
+
+<h3>Security</h3>
+
+</div>
+
+<div class="card">
+
+⚙
+
+<h3>Developer</h3>
+
+</div>
+
+<div class="card">
+
+🤖
+
+<h3>AI</h3>
+
+</div>
+
+<div class="card">
+
+📄
+
+<h3>PDF</h3>
+
+<p>Powered by PureFreeCV</p>
+
+</div>
+
+</div>
+
+</section>
+
+<script src="js/app.js"></script>
+
+</body>
+
+</html>
